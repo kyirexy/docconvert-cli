@@ -25,10 +25,10 @@
     "claude-code",
     "skill"
   ],
-  "homepage": "https://github.com/your-username/docconvert-cli",
+  "homepage": "https://github.com/kyirexy/docconvert-cli",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/docconvert-cli"
+    "url": "https://github.com/kyirexy/docconvert-cli"
   },
   "author": "",
   "license": "MIT",
