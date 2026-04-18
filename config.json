@@ -1,0 +1,6 @@
+{
+  "template": "templates/default.docx",
+  "output_dir": "word",
+  "html_output_dir": "html",
+  "pdf_output_dir": "pdf"
+}

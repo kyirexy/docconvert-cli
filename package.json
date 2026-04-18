@@ -1,0 +1,38 @@
+{
+  "name": "docconvert-cli",
+  "version": "1.0.0",
+  "description": "AI-native local document format converter (md/docx/html/pdf)",
+  "main": "docconvert.py",
+  "bin": {
+    "docconvert": "./bin/docconvert.js",
+    "docconvert-install": "./scripts/install.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2"
+  },
+  "keywords": [
+    "document",
+    "converter",
+    "markdown",
+    "docx",
+    "pdf",
+    "html",
+    "pandoc",
+    "cli",
+    "claude-code",
+    "skill"
+  ],
+  "homepage": "https://github.com/your-username/docconvert-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/docconvert-cli"
+  },
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
