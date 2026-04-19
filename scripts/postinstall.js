@@ -52,5 +52,17 @@ function checkEnv() {
   console.log('');
 }
 
+function showSkillInstallGuide() {
+  console.log('\n========================================');
+  console.log('  🎉 docconvert-cli 安装成功！');
+  console.log('========================================\n');
+  console.log('  安装 Skill 到你的 Agent:\n');
+  console.log('    docconvert --install           # 交互式选择');
+  console.log('    docconvert --install --all    # 安装到所有 Agent\n');
+  console.log('  支持的平台: Claude Code, Cursor, Windsurf, Copilot, Gemini CLI\n');
+  console.log('========================================\n');
+}
+
 // Run
 checkEnv();
+showSkillInstallGuide();
