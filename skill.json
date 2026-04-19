@@ -1,0 +1,30 @@
+{
+  "name": "docconvert",
+  "displayName": "docconvert - 文档格式转换",
+  "description": "AI 原生的本地文档格式转换工具，支持 md/docx/html/pdf 互相转换，基于 Pandoc，纯本地处理。",
+  "version": "1.0.0",
+  "author": "kyirexy",
+  "license": "MIT",
+  "homepage": "https://github.com/kyirexy/docconvert-cli",
+  "repository": "https://github.com/kyirexy/docconvert-cli",
+  "keywords": [
+    "document",
+    "converter",
+    "markdown",
+    "docx",
+    "pdf",
+    "html",
+    "claude-code",
+    "cursor",
+    "windsurf",
+    "skill"
+  ],
+  "platforms": [
+    "claude",
+    "cursor",
+    "windsurf",
+    "copilot",
+    "gemini"
+  ],
+  "install": "docconvert --install --all"
+}

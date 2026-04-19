@@ -1,0 +1,19 @@
+{
+  "platform": "cursor",
+  "displayName": "Cursor",
+  "installType": "full",
+  "folderStructure": {
+    "root": ".cursor",
+    "skillPath": "rules",
+    "filename": "docconvert.mdc"
+  },
+  "frontmatter": {
+    "description": "AI 原生的本地文档格式转换工具，支持 md/docx/html/pdf 互相转换，基于 Pandoc，纯本地处理。适用场景：文档格式转换、批量转换、套用 Word 模板（毕业论文、报告等）。"
+  },
+  "sections": {
+    "quickReference": false
+  },
+  "title": "docconvert",
+  "description": "AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF 互相转换，基于 Pandoc，纯本地处理。",
+  "skillOrWorkflow": "Skill"
+}

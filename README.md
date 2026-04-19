@@ -30,7 +30,7 @@ AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF
 
 ```
 你: 帮我把论文.md 转成 word，按毕业论文格式
-Agent: 
+Agent:
   docconvert 论文.md --template templates/default.docx
   ✅ 毕业论文.docx 已生成到 ./word/ 目录
 ```
@@ -51,28 +51,35 @@ Agent:
 npm install -g docconvert-cli
 ```
 
-### 二、安装 Skill 到 AI Agent
+### 二、自动安装 Skill
 
-```bash
-# 安装到所有支持的 Agent
-docconvert --install --all
+npm 安装后会自动安装 Skill 到检测到的 Agent（使用软链接，npm 更新后 Skill 自动同步）：
 
-# 或交互式选择
-docconvert --install
+```
+========================================
+  🎉 docconvert-cli 安装成功！
+========================================
+
+📦 正在安装 Skill 到 Agent (软链接模式)...
+
+  [OK] Claude Code: ~/.claude/skills/docconvert
+  [OK] Gemini CLI: ~/.gemini/antigravity/skills/docconvert
+
+✅ Skill 安装完成！请重启你的 Agent 使 Skill 生效。
+========================================
 ```
 
-### 三、直接使用
+### 三、手动安装/更新 Skill
 
 ```bash
-# md -> docx（默认）
-docconvert input.md
+# 安装到所有 Agent（软链接模式，npm 更新后自动同步）
+docconvert --install --all --symlink
 
-# 指定格式
-docconvert input.md -t html
-docconvert input.md -t pdf
+# 复制模式（静态安装）
+docconvert --install --all
 
-# 使用模板（毕业论文/正式文档）
-docconvert 论文.md --template templates/default.docx
+# 卸载 Skill
+docconvert --install --unlink
 ```
 
 ---
@@ -140,13 +147,13 @@ docconvert --check
 
 | Agent | 安装命令 |
 |-------|---------|
-| Claude Code | `docconvert --install --claude` |
-| Cursor | `docconvert --install --cursor` |
-| Windsurf | `docconvert --install --windsurf` |
-| GitHub Copilot | `docconvert --install --copilot` |
-| Gemini CLI | `docconvert --install --gemini` |
+| Claude Code | `docconvert --install --claude --symlink` |
+| Cursor | `docconvert --install --cursor --symlink` |
+| Windsurf | `docconvert --install --windsurf --symlink` |
+| GitHub Copilot | `docconvert --install --copilot --symlink` |
+| Gemini CLI | `docconvert --install --gemini --symlink` |
 
-全部安装：`docconvert --install --all`
+全部安装：`docconvert --install --all --symlink`
 
 ---
 
@@ -154,20 +161,34 @@ docconvert --check
 
 ```
 docconvert-cli/
-├── docconvert.py              # Python 主入口
-├── bin/docconvert.js         # npm CLI 入口
-├── scripts/install.js         # 跨 Agent Skill 安装器
+├── skill.json                 # 包配置
+├── src/
+│   ├── platforms/           # 平台配置
+│   │   ├── claude.json
+│   │   ├── cursor.json
+│   │   └── windsurf.json
+│   └── base/
+│       ├── skill-content.md  # 通用 Skill 内容
+│       └── examples.md      # 快速参考
 ├── skills/                   # Agent Skill 文件
 │   ├── SKILL.md            # Claude Code
-│   ├── SKILL.cursor.md    # Cursor
-│   └── SKILL.windsurf.md  # Windsurf
+│   ├── SKILL.cursor.md     # Cursor
+│   └── SKILL.windsurf.md   # Windsurf
 ├── convert/                  # 转换模块
-└── templates/               # Word 模板
+├── templates/               # Word 模板
+└── scripts/
+    ├── install.js          # Skill 安装器
+    └── postinstall.js       # npm 安装后钩子
 ```
 
 ---
 
 ## 常见问题
+
+**Q: 软链接模式 vs 复制模式？**
+
+- **软链接（--symlink）**：npm 更新后 Skill 自动同步，推荐
+- **复制（默认）**：文件静态拷贝，不受 npm 更新影响
 
 **Q: 转换后中文乱码？**
 确保原文件编码为 UTF-8。

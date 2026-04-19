@@ -1,0 +1,26 @@
+{
+  "platform": "claude",
+  "displayName": "Claude Code",
+  "installType": "full",
+  "folderStructure": {
+    "root": ".claude",
+    "skillPath": "skills/docconvert",
+    "filename": "SKILL.md"
+  },
+  "scriptPath": "skills/docconvert/scripts/search.py",
+  "frontmatter": {
+    "name": "docconvert",
+    "description": "AI 原生的本地文档格式转换工具，支持 md/docx/html/pdf 互相转换，基于 Pandoc，纯本地处理。适用场景：文档格式转换、批量转换、套用 Word 模板（毕业论文、报告等）。",
+    "version": "1.0.0",
+    "author": "kyirexy",
+    "license": "MIT",
+    "tags": ["document", "converter", "markdown", "docx", "pdf", "html", "academic"],
+    "platforms": ["claude", "cursor", "windsurf"]
+  },
+  "sections": {
+    "quickReference": true
+  },
+  "title": "docconvert - 文档格式转换",
+  "description": "AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF 互相转换，基于 Pandoc，纯本地处理。",
+  "skillOrWorkflow": "Skill"
+}

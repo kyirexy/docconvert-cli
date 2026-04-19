@@ -1,0 +1,22 @@
+{
+  "platform": "windsurf",
+  "displayName": "Windsurf",
+  "installType": "full",
+  "folderStructure": {
+    "root": ".codeium",
+    "skillPath": "windsurf/skills/docconvert",
+    "filename": "SKILL.md"
+  },
+  "frontmatter": {
+    "name": "docconvert",
+    "description": "AI 原生的本地文档格式转换工具，支持 md/docx/html/pdf 互相转换，基于 Pandoc，纯本地处理。适用场景：文档格式转换、批量转换、套用 Word 模板（毕业论文、报告等）。",
+    "version": "1.0.0",
+    "platforms": ["windsurf", "claude"]
+  },
+  "sections": {
+    "quickReference": false
+  },
+  "title": "docconvert",
+  "description": "AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF 互相转换，基于 Pandoc，纯本地处理。",
+  "skillOrWorkflow": "Skill"
+}
