@@ -6,11 +6,12 @@ description: >
   适用场景：
   - 文档格式互相转换（md ↔ docx ↔ html ↔ pdf）
   - 批量转换文档
-  - 套用 Word 模板生成标准化文档
+  - 套用 Word 模板生成标准化文档（毕业论文、报告、合同等）
   - "/docconvert" 或检测到转换意图时触发
 
 version: 1.0.0
 author: ""
+homepage: https://github.com/kyirexy/docconvert-cli
 platforms:
 - windsurf
 - claude
@@ -22,8 +23,9 @@ AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF
 
 ## When to Use / 触发条件
 
-当用户请求以下操作时使用此 skill：
+当用户请求以下操作时**必须**使用此 skill：
 
+### 格式转换类
 - "转换文档格式"、"转成 docx/html/pdf/md"
 - "md 转 word"、"word 转 markdown"
 - "把这个 markdown 转成 html/pdf/word"
@@ -32,32 +34,38 @@ AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF
 - "帮我转一下这个文件"
 - "/docconvert"
 
+### 模板套用类（毕业论文/报告/合同）
+- "按毕业论文格式导出"
+- "转成 word 并套用模板"
+- "生成标准格式的 docx"
+- "按照学术论文格式排版"
+
 ## Instructions / 执行步骤
 
-### 第一步：识别转换方向
+### 标准转换流程
 
-根据用户输入识别源文件格式和目标格式：
+**第一步：识别源文件格式**
 
-```
-输入包含 "md" 或 "markdown" → 源格式可能是 .md
-输入包含 "docx" 或 "word" → 源格式可能是 .docx
-输入包含 "html" 或 "网页" → 可能要转 html
-输入包含 "pdf" → 可能要转 pdf
-```
+| 文件扩展名 | 源格式 |
+|-----------|--------|
+| `.md` / `.markdown` | Markdown |
+| `.docx` / `.doc` | Word |
+| `.html` / `.htm` | HTML |
+| `.pdf` | PDF |
 
-### 第二步：确定目标格式
+**第二步：确定目标格式**
 
-| 用户意图 | 目标格式 | 命令 |
-|---------|---------|------|
-| "转成 docx/word" | docx | `-t docx`（默认） |
+| 用户意图 | 目标格式 | 命令参数 |
+|---------|---------|---------|
+| "转成 docx/word" | docx | `-t docx` |
 | "转成 md/markdown" | md | `-t md` |
 | "转成 html/网页" | html | `-t html` |
 | "转成 pdf" | pdf | `-t pdf` |
 
-### 第三步：执行转换
+**第三步：执行转换**
 
 ```bash
-# 基本转换（自动输出到 ./word/, ./html/, ./pdf/）
+# 基本转换（输出到 ./word/, ./html/, ./pdf/）
 docconvert <源文件>
 
 # 指定目标格式
@@ -66,120 +74,98 @@ docconvert <源文件> -t <格式>
 # 指定输出目录
 docconvert <源文件> --output-dir ./输出目录/
 
+# 使用 Word 模板（推荐用于毕业论文/正式文档）
+docconvert <源文件> --template templates/default.docx
+
 # 批量转换
 docconvert --batch ./目录/
-
-# 使用模板
-docconvert <源文件> --template 模板.docx
 ```
 
-### 第四步：反馈结果
+**第四步：反馈结果**
 
 转换成功后告知用户：
-- 输出文件路径
-- 如果有图片，说明图片位置
+- ✅ 输出文件完整路径
+- ✅ 图片位置（如果有）
+- ✅ 转换的格式信息
 
-## Examples / 输入输出示例
+### 模板套用流程（毕业论文/正式文档）
 
-### 示例 1：md → docx
+```bash
+# 使用默认模板套用
+docconvert <论文.md> --template templates/default.docx
 
-**用户输入：** "帮我把这个 md 转成 word"
+# 使用自定义模板
+docconvert <论文.md> --template 我的毕业论文模板.docx
+```
+
+## Examples / 常用场景示例
+
+### 场景 1：毕业论文转换
+
+**用户输入：** "把我的论文 md 转成 word，要套用毕业论文模板"
 
 **Agent 执行：**
 ```bash
-docconvert 用户文件.md -t docx
+docconvert 毕业论文.md --template templates/default.docx
 ```
 
 **预期输出：**
 ```
-[CONVERT] 用户文件.md -> 用户文件.docx (DOCX)
+[CONVERT] 毕业论文.md -> 毕业论文.docx (DOCX)
 [FONT] Fixed: SimHei (headings), SimSun (body)
-[OK] ./word/用户文件.docx
+[TEMPLATE] Applied: default.docx
+[OK] ./word/毕业论文.docx
 ```
 
 ---
 
-### 示例 2：docx → md
+### 场景 2：批量文档转换
 
-**用户输入：** "把这份 word 转成 markdown"
+**用户输入：** "把这个文件夹里的所有 md 转成 docx"
 
 **Agent 执行：**
 ```bash
-docconvert 用户文件.docx -t md
-```
-
-**预期输出：**
-```
-[CONVERT] 用户文件.docx -> 用户文件.md (MD)
-[OK] ./md/用户文件.md
-[INFO] Media extracted to: ./md/media
+docconvert --batch ./文档目录/
 ```
 
 ---
 
-### 示例 3：md → PDF
+### 场景 3：Word 转 Markdown
 
-**用户输入：** "转成 pdf 格式"
+**用户输入：** "把这个 word 转成 md，图片也要保留"
 
 **Agent 执行：**
 ```bash
-docconvert 用户文件.md -t pdf
+docconvert 报告.docx -t md
 ```
 
-**预期输出：**
-```
-[CONVERT] 用户文件.md -> 用户文件.pdf (PDF)
-[OK] ./pdf/用户文件.pdf
-```
+---
 
 ## Configuration / 配置说明
 
+### 内置模板
+
+| 模板 | 适用场景 |
+|------|---------|
+| `default.docx` | 通用文档/毕业论文 |
+
 ### 环境要求
 
-- **Python 3.6+**
+- **Python 3.6+**（必需）
 - **Pandoc**（必需）
-- **xelatex**（仅 PDF 输出时需要）
+- **xelatex**（仅 PDF 输出需要）
 
-### 安装命令
+### 输出目录
 
-```bash
-# Windows
-winget install JohnMacFarlane.Pandoc
-winget install MikTex.MikTex  # 仅 PDF
+| 格式 | 默认输出 |
+|------|---------|
+| docx | `./word/` |
+| md | `./md/` |
+| html | `./html/` |
+| pdf | `./pdf/` |
 
-# macOS
-brew install pandoc
+## Notes / 注意事项
 
-# Linux
-sudo apt install pandoc
-```
-
-### 输出目录说明
-
-默认情况下，输出到当前工作目录的格式子文件夹：
-
-| 格式 | 默认输出目录 |
-|------|------------|
-| docx | ./word/ |
-| md | ./md/ |
-| html | ./html/ |
-| pdf | ./pdf/ |
-
-可通过 `--output-dir` 或 `config.json` 自定义。
-
-## Resources / 资源
-
-```
-docconvert/
-├── docconvert.py          # 主入口
-├── convert/              # 转换模块
-│   ├── _base.py        # 公共函数
-│   ├── _fonts.py       # 字体修复
-│   ├── md2docx.py     # md → docx
-│   ├── docx2md.py      # docx → md
-│   ├── md2html.py      # md → html
-│   ├── md2pdf.py       # md → pdf
-│   └── docx2pdf.py     # docx → pdf
-├── templates/           # Word 模板
-└── config.json          # 配置文件
-```
+1. **中文乱码**：确保原文件编码为 UTF-8
+2. **图片路径**：相对路径图片会被正确处理
+3. **模板样式**：模板中的字体/颜色会被保留
