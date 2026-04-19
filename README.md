@@ -2,6 +2,9 @@
 
 AI 原生的本地文档格式转换工具，支持 Markdown、Word、HTML、PDF 互相转换，基于 Pandoc，纯本地处理。
 
+[![npm version](https://img.shields.io/npm/v/docconvert-cli)](https://www.npmjs.com/package/docconvert-cli)
+[![license](https://img.shields.io/npm/l/docconvert-cli)](LICENSE)
+
 > **TL;DR**: 给需要处理文档格式的开发者/写作者使用，一键将 md/docx/html/pdf 互相转换，中文支持完善，开箱即用。
 
 [快速开始](#快速开始) · [功能列表](#功能列表) · [环境要求](#环境要求) · [支持平台](#支持平台)
