@@ -1,6 +1,6 @@
 {
   "name": "docconvert-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI-native local document format converter (md/docx/html/pdf)",
   "main": "docconvert.py",
   "bin": {
